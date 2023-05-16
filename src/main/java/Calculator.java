@@ -29,8 +29,8 @@ public class Calculator {
         scanner = new Scanner(System.in);
         peopleCount();
         while (true) {
-            System.out.println("Введите наименование товара");
-            System.out.println("Введите 'Завершить' чтобы закончить ввод товаров");
+            System.out.println("Введите наименование товара \n Введите 'Завершить' чтобы закончить ввод товаров");
+
             goodsName = scanner.nextLine();
             if (goodsName.equalsIgnoreCase("Завершить")) {
                 bill();
@@ -66,7 +66,7 @@ public class Calculator {
             };
         }
         System.out.println("Добавленные товары:" + "\n" + goodsName);
-        System.out.println(String.format("Каждый человек заплатит %.2f %s", total, rubleText));
+        System.out.printf("Каждый человек заплатит %.2f %s%n", total, rubleText);
     }
 }
 
