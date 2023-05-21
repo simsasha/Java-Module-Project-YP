@@ -1,72 +1,33 @@
 import java.util.Scanner;
 
-public class Calculator {
-    String goodsName;
-    int goodsAmount = 0;
-    double total;
-    int people;
-
-    Scanner scanner = new Scanner(System.in);
-
-    public void peopleCount() {
-        int peopleNumber;
-        while (true) {
-            System.out.println("Введите количество гостей");
-            peopleNumber = scanner.nextInt();
-            if (peopleNumber <= 1) {
-                System.out.println("Некорректное количество гостей, значение должно быть больше 1");
-            } else {
-                people = peopleNumber;
-                scanner.nextLine();
-                break;
-            }
-        }
-    }
-
-    public void addGoods() {
-        String goodsName;
-        double goodsPrice;
-        scanner = new Scanner(System.in);
-        peopleCount();
-        while (true) {
-            System.out.println("Введите наименование товара \n Введите 'Завершить' чтобы закончить ввод товаров");
-
-            goodsName = scanner.nextLine();
-            if (goodsName.equalsIgnoreCase("Завершить")) {
-                bill();
-                break;
-            } else {
-                while (true) {
-                    System.out.println("Введите цену товара в формате рубли.копейки");
-                    goodsPrice = scanner.nextDouble();
-                    if (goodsPrice <= 0) {
-                        System.out.println("Цена должна быть больше 0. Повторите ввод");
-                        break;
-                    } else {
-                        total = total + goodsPrice;
-                        goodsAmount++;
-                    }
-
+class CountingPeople { // Метод спрашивает кол-во людей для выставления счета;
+    int result = 0;
+    public int calculate() {
+        Scanner scanner = new Scanner(System.in);
+        do {
+            System.out.println("На сколько человек считать счет?");
+            while (true) // Проверка на то, чтобы ввели именно число. Можно было бы вынести в отдельный метод. Но в контексте работы, не хотелось бы.
+            {
+                if (scanner.hasNextDouble() || scanner.hasNextLong() || scanner.hasNextInt())
+                {
+                    result = Integer.parseInt(scanner.nextLine());
+                    break;
                 }
+                else
+                {
+                    System.out.println("Вы ввели не число, так на сколько человек счет считать?");
+                    scanner.nextLine();
+                }}
+            if (result == 1) {
+                System.out.println("А что тут считать, 1 и есть 1");
+            } else if (result > 1) {
+                System.out.println("Понял, счет делим на " + result);
+                return result;
+            } else {
+                System.out.println("Это некорректное значение для подсчёта, введи снова");
             }
         }
-    }
-
-    public void bill() {
-        double num = total / people;
-        String rubleText;
-        int preDigit = (int) ((num % 100) / 10);
-        if (preDigit == 1) {
-            rubleText = "рублей";
-        } else {
-            rubleText = switch ((int) (num % 10)) {
-                case 1 -> "рублю";
-                case 2, 3, 4 -> "рубля";
-                default -> "рублей";
-            };
-        }
-        System.out.println("Добавленные товары:" + "\n" + goodsName);
-        System.out.printf("Каждый человек заплатит %.2f %s%n", total, rubleText);
+        while (result <= 1);
+        return result;
     }
 }
-
