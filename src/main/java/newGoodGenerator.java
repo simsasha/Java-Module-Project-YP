@@ -63,29 +63,27 @@ public class newGoodGenerator { // Добавить с большой буквы
     }
 
     public void bill(int peopleCount) { // Метод, который выставляет счет. Он делит общую сумму на кол-во людей;
-        String rubleText;
         double result = totalPrice / peopleCount;
-        int preResult = (int) Math.floor(totalPrice / peopleCount);
-        switch (preResult % 10) {
+        System.out.println(allGoods);
+        System.out.printf("Каждый человек заплатит %.2f %s", result, declinationOfRub(result));
+    }
+    public String declinationOfRub(double result){
+        int num = (int) result;
+        int preLastDigit = num % 100 / 10;
+        if (preLastDigit == 1)
+        {
+            return "рублей";
+        }
+        switch (num % 10)
+        {
             case 1:
-                rubleText = "рубль";
-                break;
+                return "рубль";
             case 2:
             case 3:
             case 4:
-                rubleText = "рубля";
-                break;
-            case 5:
-            case 6:
-            case 7:
-            case 8:
-            case 9:
-            case 0:
+                return "рубля";
             default:
-                rubleText = "рублей";
-                break;
+                return "рублей";
         }
-        System.out.println(allGoods);
-        System.out.printf("Каждый человек заплатит %.2f %s", result, rubleText);
     }
 }
