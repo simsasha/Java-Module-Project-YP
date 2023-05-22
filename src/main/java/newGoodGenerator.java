@@ -86,4 +86,5 @@ public class newGoodGenerator { // Добавить с большой буквы
                 return "рублей";
         }
     }
+
 }
